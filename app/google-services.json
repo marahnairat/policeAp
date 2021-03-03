@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:825065259460:android:59a7706f974919f576a491",
+        "mobilesdk_app_id": "1:825065259460:android:b36da52a0a7cc54076a491",
         "android_client_info": {
-          "package_name": "com.android.application"
+          "package_name": "com.example.policeapp"
         }
       },
       "oauth_client": [

@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-ml-vision:24.1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8121cd9878a34b0f55daba442110a5f/jetified-firebase-ml-vision-24.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8121cd9878a34b0f55daba442110a5f/jetified-firebase-ml-vision-24.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ae46a0a938e6ad3503597c43e7061b5/jetified-firebase-ml-vision-24.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8121cd9878a34b0f55daba442110a5f/jetified-firebase-ml-vision-24.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c8121cd9878a34b0f55daba442110a5f/jetified-firebase-ml-vision-24.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
