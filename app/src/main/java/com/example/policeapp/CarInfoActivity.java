@@ -1,25 +1,25 @@
 package com.example.policeapp;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class CarInfoActivity extends AppCompatActivity {
     @Override
@@ -81,7 +81,8 @@ public class CarInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),OwnerInfoAct.class);
-                intent.putExtra("owner_id",owner_id[0] );
+//                if(owner_id[0].equals(""))
+//                intent.putExtra("owner_id",owner_id[0] );
                 startActivity(intent);
             }
         });
@@ -89,7 +90,8 @@ public class CarInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),LicenseCarAct.class);
-                intent.putExtra("license_id", lic_id[0]);
+//                if(lic_id[0].equals(""))
+//                    intent.putExtra("license_id", lic_id[0]);
                 startActivity(intent);
             }
         });
@@ -97,13 +99,39 @@ public class CarInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InsuranceCarAct.class);
-                intent.putExtra("insurance_id",ins_id[0] );
+//                if(ins_id[0].equals(""))
+//                    intent.putExtra("insurance_id",ins_id[0] );
                 startActivity(intent);
             }
         });
             }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.signout) {
+            Toast.makeText(getApplicationContext(), "signout", Toast.LENGTH_SHORT).show();
+            FirebaseAuth firebaseAuth;
+            FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    if (firebaseAuth.getCurrentUser() == null){
+                        startActivity(new Intent(CarInfoActivity.this, LoginActivity.class));
+                        finish();                    }
+                    else {
+                    }
+                }
+            };
+
+        }
+        return true;
+    }
 }
 
 
