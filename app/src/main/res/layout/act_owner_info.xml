@@ -31,6 +31,8 @@
         android:text="NAME"
         android:textAlignment="center"
         android:textSize="20dp"
+        android:background="#59A7B0C3"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +47,8 @@
         android:textSize="20dp"
         android:padding="10dp"
         android:textAlignment="center"
+        android:background="#59A7B0C3"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +63,8 @@
         android:text="HAS LICENSE ?"
         android:textAlignment="center"
         android:textSize="20dp"
+        android:background="#59A7B0C3"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

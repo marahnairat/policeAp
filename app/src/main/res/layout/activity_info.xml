@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="center"
-    android:background="#5E1E318E"
+    android:background="#431E318E"
     >
 
     <Button
@@ -16,6 +16,8 @@
         android:text="INSURANCE CAR INFO"
         android:textAlignment="center"
         android:textSize="20dp"
+        android:background="#8FA7B0C3"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -30,6 +32,8 @@
         android:textAlignment="center"
         android:text="OWNER INFO"
         android:textSize="20dp"
+        android:background="#8FA7B0C3"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,10 +93,27 @@
         android:textAlignment="center"
         android:text="LICENSE CAR INFO"
         android:textSize="20dp"
+        android:background="#8FA7B0C3"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.721" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:text="Car Details"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.095" />
 </androidx.constraintlayout.widget.ConstraintLayout>
