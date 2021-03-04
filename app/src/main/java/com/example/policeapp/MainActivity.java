@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,9 +21,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
@@ -37,6 +40,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap mSelectedBitMap;
+    EditText enter_carplate;
     String currentPhotoPath;
     Button carPlateDisplay;
     String carPlate;
@@ -48,11 +52,27 @@ public class MainActivity extends AppCompatActivity {
         Button yolobtn;
         yolobtn = findViewById(R.id.yolobtn);
         carPlateDisplay = findViewById(R.id.carPlateDisplay);
+        Button entered_car_id;
+        entered_car_id=findViewById(R.id.enteredcarPlate);
+         enter_carplate = findViewById(R.id.write_num);
+        entered_car_id.setOnClickListener(new View.OnClickListener() {
+                                              @Override
+                                              public void onClick(android.view.View view) {
+
+                                                  carPlate= enter_carplate.getText().toString();
+                                                  Intent intent = new Intent(getBaseContext(),CarInfoActivity.class);
+                                                  intent.putExtra("car_id", carPlate);
+                                                  startActivity(intent);
+                                              }
+                                          });
+
+
         yolobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
                 runYOLOAlgo();
             }
+
 
             private void runYOLOAlgo() {
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
@@ -81,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(FirebaseVisionText firebaseVisionText) {
                 carPlate=firebaseVisionText.getText();
+                
                 carPlateDisplay.setText(firebaseVisionText.getText());
                 carPlateDisplay.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -159,18 +180,17 @@ public boolean onCreateOptionsMenu(Menu menu) {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.signout) {
+
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
             Toast.makeText(getApplicationContext(), "signout", Toast.LENGTH_SHORT).show();
-            FirebaseAuth firebaseAuth;
-            FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if (firebaseAuth.getCurrentUser() == null){
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        finish();                    }
-                    else {
-                    }
-                }
-            };
 
         }
     return true;

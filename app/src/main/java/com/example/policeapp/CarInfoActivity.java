@@ -14,10 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -44,10 +43,9 @@ public class CarInfoActivity extends AppCompatActivity {
 //        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 //        car_pic = (ImageView) findViewById(R.id.car_pic);
 //        car_pic.setImageBitmap(bmp);
-
-        DocumentReference data = FirebaseFirestore.getInstance().collection("cars")
-                .document(carid);
-        data.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("cars")
+                .document(carid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -72,7 +70,21 @@ public class CarInfoActivity extends AppCompatActivity {
                 }
             }
         });
-
+//        db.collection("cars").document("5010095").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d( "DocumentSnapshot data: " , document.getData().toString());
+//                    } else {
+//                        Log.d("m","No such document");
+//                    }
+//                } else {
+//                    Log.d("get failed with ", task.getException().toString());
+//                }
+//            }
+//        });
 
         car_id.setText(carid);
         car_type.setText(cartype[0]);
@@ -116,22 +128,22 @@ public class CarInfoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.signout) {
+
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(CarInfoActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
             Toast.makeText(getApplicationContext(), "signout", Toast.LENGTH_SHORT).show();
-            FirebaseAuth firebaseAuth;
-            FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if (firebaseAuth.getCurrentUser() == null){
-                        startActivity(new Intent(CarInfoActivity.this, LoginActivity.class));
-                        finish();                    }
-                    else {
-                    }
-                }
-            };
 
         }
         return true;
     }
+
 }
 
 

@@ -11,13 +11,13 @@
 
     <TextView
         android:id="@+id/ins_id"
-        android:layout_width="216dp"
-        android:layout_height="58dp"
+        android:layout_width="219dp"
+        android:layout_height="42dp"
         android:background="#59A7B0C3"
         android:padding="10dp"
         android:text="Insurance id"
         android:textAlignment="center"
-        android:textSize="20dp"
+        android:textSize="15dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,13 +28,13 @@
 
     <TextView
         android:id="@+id/ins_start_date"
-        android:layout_width="216dp"
-        android:layout_height="58dp"
+        android:layout_width="215dp"
+        android:layout_height="40dp"
         android:background="#59A7B0C3"
         android:padding="10dp"
         android:text="Start date"
         android:textAlignment="center"
-        android:textSize="20dp"
+        android:textSize="15dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,13 +45,13 @@
 
     <TextView
         android:id="@+id/ins_end_date"
-        android:layout_width="216dp"
-        android:layout_height="58dp"
+        android:layout_width="213dp"
+        android:layout_height="41dp"
         android:background="#59A7B0C3"
         android:padding="10dp"
         android:text="End date"
         android:textAlignment="center"
-        android:textSize="20dp"
+        android:textSize="15dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,13 +62,13 @@
 
     <TextView
         android:id="@+id/ins_typ"
-        android:layout_width="216dp"
-        android:layout_height="58dp"
+        android:layout_width="215dp"
+        android:layout_height="45dp"
         android:background="#59A7B0C3"
         android:padding="10dp"
         android:text="Insurance type"
         android:textAlignment="center"
-        android:textSize="20dp"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.517"

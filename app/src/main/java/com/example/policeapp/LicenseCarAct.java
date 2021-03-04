@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,9 +39,9 @@ public class LicenseCarAct  extends AppCompatActivity {
         TextView car_type = findViewById(R.id.lic_cartyp);
         TextView is_exp = findViewById(R.id.is_ex);
 
-//        String licId;
-//        licId=getIntent().getStringExtra("license_id");
-//        lic_c_id.setText(licId);
+        String licId;
+        licId=getIntent().getStringExtra("license_id");
+        lic_c_id.setText(licId);
 
 
         final Timestamp [] licStartDate = new Timestamp[1];
@@ -50,7 +50,7 @@ public class LicenseCarAct  extends AppCompatActivity {
         final String[] carid = new String[1];
 
         DocumentReference data = FirebaseFirestore.getInstance().collection("licence_c")
-                .document("licId");
+                .document(licId);
         data.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -90,6 +90,8 @@ public class LicenseCarAct  extends AppCompatActivity {
 
                     } else {
                         Log.d("No such document"," ");
+                        is_exp.setText("HAS NO LICENCE  ");
+                        is_exp.setBackgroundColor(Color.RED);
                     }
                 } else {
                     Log.d( "get failed with ", String.valueOf(task.getException()));
@@ -108,24 +110,25 @@ public class LicenseCarAct  extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.signout) {
+
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(LicenseCarAct.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
             Toast.makeText(getApplicationContext(), "signout", Toast.LENGTH_SHORT).show();
-            FirebaseAuth firebaseAuth;
-            FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if (firebaseAuth.getCurrentUser() == null){
-                        startActivity(new Intent(LicenseCarAct.this, LoginActivity.class));
-                        finish();                    }
-                    else {
-                    }
-                }
-            };
 
         }
         return true;
     }
+
 }

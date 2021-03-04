@@ -44,8 +44,16 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-ml-vision'
-    implementation 'com.google.firebase:firebase-firestore'
     implementation'com.google.android.gms:play-services-auth:19.0.0'
     implementation'com.google.android.gms:play-services-maps:17.0.0'
     implementation'com.google.firebase:firebase-messaging:21.0.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
+    implementation 'com.firebaseui:firebase-ui-auth:4.0.0'
+
+
+
+
+
+
+
 }

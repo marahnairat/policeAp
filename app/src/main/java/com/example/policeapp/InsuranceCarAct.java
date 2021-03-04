@@ -12,10 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,9 +36,9 @@ public class InsuranceCarAct  extends AppCompatActivity {
         TextView ins_id = findViewById(R.id.ins_id);
         TextView is_exp = findViewById(R.id.is_ex_in);
 
-//        String insId;
-//        insId=getIntent().getStringExtra("insurance_id");
-//        ins_id.setText(insId);
+        String insId;
+        insId=getIntent().getStringExtra("insurance_id");
+        ins_id.setText(insId);
 
 
         final Timestamp[] insStartDate = new Timestamp[1];
@@ -46,7 +46,7 @@ public class InsuranceCarAct  extends AppCompatActivity {
         final String [] instype = new String[1];
 
         DocumentReference data = FirebaseFirestore.getInstance().collection("insurance")
-                .document("insId");
+                .document(insId);
         data.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -72,7 +72,7 @@ public class InsuranceCarAct  extends AppCompatActivity {
                         }
                         else
                         {
-                            is_exp.setText("LICENCE IS VALID ");
+                            is_exp.setText("INSURANCE IS VALID ");
                             is_exp.setBackgroundColor(Color.GREEN);
                         }
 
@@ -81,6 +81,8 @@ public class InsuranceCarAct  extends AppCompatActivity {
 
                     } else {
                         Log.d("No such document"," ");
+                        is_exp.setText("HAS NO INSURANCE ");
+                        is_exp.setBackgroundColor(Color.RED);
                     }
                 } else {
                     Log.d( "get failed with ", String.valueOf(task.getException()));
@@ -100,24 +102,25 @@ public class InsuranceCarAct  extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.signout) {
+
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(InsuranceCarAct.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
             Toast.makeText(getApplicationContext(), "signout", Toast.LENGTH_SHORT).show();
-            FirebaseAuth firebaseAuth;
-            FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if (firebaseAuth.getCurrentUser() == null){
-                        startActivity(new Intent(InsuranceCarAct.this, LoginActivity.class));
-                        finish();                    }
-                    else {
-                    }
-                }
-            };
 
         }
         return true;
     }
+
 }
