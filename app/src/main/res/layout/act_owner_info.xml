@@ -10,13 +10,14 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="247dp"
-        android:layout_height="36dp"
-        android:text="HAS LICENSE ?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HAS LICENCE ?"
         android:textAlignment="center"
         android:textColor="#151414"
         android:textSize="15dp"
         android:textStyle="bold"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,14 +26,13 @@
 
     <TextView
         android:id="@+id/owner_name"
-        android:layout_width="247dp"
-        android:layout_height="68dp"
-        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="NAME"
         android:textAlignment="center"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:background="#59A7B0C3"
-
+android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,11 +41,11 @@
 
     <TextView
         android:id="@+id/owner_phone"
-        android:layout_width="247dp"
-        android:layout_height="68dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="PHONE"
-        android:textSize="20dp"
-        android:padding="10dp"
+        android:textSize="30dp"
+        android:padding="5dp"
         android:textAlignment="center"
         android:background="#59A7B0C3"
 
@@ -57,10 +57,10 @@
 
     <TextView
         android:id="@+id/has_lic"
-        android:layout_width="247dp"
-        android:layout_height="68dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="HAS LICENSE ?"
+        android:text="HAS LICENCE ?"
         android:textAlignment="center"
         android:textSize="20dp"
         android:background="#59A7B0C3"

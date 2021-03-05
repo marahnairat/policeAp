@@ -5,17 +5,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -68,12 +66,12 @@ public class InsuranceCarAct  extends AppCompatActivity {
                         if(is_expired < 0)
                         {
                             is_exp.setText("INSURANCE IS EXPIRED ");
-                            is_exp.setBackgroundColor(Color.RED);
+                            is_exp.setBackgroundColor(Color.parseColor("#D59C5B5B"));
                         }
                         else
                         {
                             is_exp.setText("INSURANCE IS VALID ");
-                            is_exp.setBackgroundColor(Color.GREEN);
+                            is_exp.setBackgroundColor(Color.parseColor("#D55B9C6E"));
                         }
 
                         Log.d("field insurance start: " , start.toString());
@@ -82,7 +80,7 @@ public class InsuranceCarAct  extends AppCompatActivity {
                     } else {
                         Log.d("No such document"," ");
                         is_exp.setText("HAS NO INSURANCE ");
-                        is_exp.setBackgroundColor(Color.RED);
+                        is_exp.setBackgroundColor(Color.parseColor("#D59C5B5B"));
                     }
                 } else {
                     Log.d( "get failed with ", String.valueOf(task.getException()));
@@ -100,27 +98,39 @@ public class InsuranceCarAct  extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
 
     }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.signout) {
-
-            AuthUI.getInstance()
-                    .signOut(this)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        public void onComplete(@NonNull Task<Void> task) {
-                            // user is now signed out
+    private FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            if (firebaseAuth.getCurrentUser() == null){
                             startActivity(new Intent(InsuranceCarAct.this, LoginActivity.class));
-                            finish();
-                        }
-                    });
-            Toast.makeText(getApplicationContext(), "signout", Toast.LENGTH_SHORT).show();
-
+            }
+            else {
+            }
         }
-        return true;
-    }
+    };
+
+
+
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.signout) {
+//
+//            AuthUI.getInstance()
+//                    .signOut(this)
+//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            // user is now signed out
+//                            startActivity(new Intent(InsuranceCarAct.this, LoginActivity.class));
+//                            finish();
+//                        }
+//                    });
+//            Toast.makeText(getApplicationContext(), "signout", Toast.LENGTH_SHORT).show();
+//
+//        }
+//        return true;
+//    }
 
 }

@@ -6,8 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.2"
-        classpath 'com.google.gms:google-services:4.3.2'
-
+        classpath 'com.google.gms:google-services:4.3.5'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -22,4 +21,16 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    minSdkVersion = 16
+    targetSdkVersion = 29
+    compileSdkVersion = 259
+
+    //App Dependencies Version
+    supportLibraryVersion = '28.0.0'
+    compactCalendarViewVersion = '3.0.0'
+    butterKniferVersion = '10.2.1'
+    junitVersion = '4.13'
 }

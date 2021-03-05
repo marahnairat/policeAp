@@ -10,6 +10,38 @@
     >
 
     <Button
+        android:id="@+id/lic_car_info"
+        android:layout_width="222dp"
+        android:layout_height="45dp"
+        android:background="#8FA7B0C3"
+        android:text="LICENCE CAR INFO"
+        android:textAlignment="center"
+        android:textSize="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.672" />
+
+    <Button
+        android:id="@+id/owner_info"
+        android:layout_width="222dp"
+        android:layout_height="45dp"
+        android:background="#8FA7B0C3"
+        android:text="OWNER INFO"
+        android:textAlignment="center"
+        android:textSize="20dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594" />
+
+    <Button
         android:id="@+id/ins_car_info"
         android:layout_width="222dp"
         android:layout_height="45dp"
@@ -20,25 +52,10 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
-
-    <Button
-        android:id="@+id/owner_info"
-        android:layout_width="222dp"
-        android:layout_height="45dp"
-        android:textAlignment="center"
-        android:text="OWNER INFO"
-        android:textSize="20dp"
-        android:background="#8FA7B0C3"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648" />
+        app:layout_constraintVertical_bias="0.747" />
 
     <TextView
         android:id="@+id/car_id"
@@ -46,14 +63,12 @@
         android:layout_height="52dp"
         android:text="car id"
         android:textAlignment="center"
-        android:padding="15dp"
-        android:textSize="20dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.445" />
+        app:layout_constraintVertical_bias="0.301" />
 
     <TextView
         android:id="@+id/car_type"
@@ -61,46 +76,15 @@
         android:layout_height="52dp"
         android:text="car type"
         android:textAlignment="center"
-        android:padding="15dp"
-        android:textSize="20dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.539"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55"
+        app:layout_constraintVertical_bias="0.418"
 
         />
-
-    <ImageView
-        android:id="@+id/car_pic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.237"
-        tools:srcCompat="@tools:sample/avatars"
-        android:src="@drawable/ic_launcher_background"
-        />
-
-    <Button
-        android:id="@+id/lic_car_info"
-        android:layout_width="222dp"
-        android:layout_height="45dp"
-        android:background="#8FA7B0C3"
-        android:text="LICENSE CAR INFO"
-        android:textAlignment="center"
-        android:textSize="20dp"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.724" />
 
     <TextView
         android:id="@+id/textView"

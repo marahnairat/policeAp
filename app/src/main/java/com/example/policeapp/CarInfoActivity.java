@@ -1,6 +1,7 @@
 package com.example.policeapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,14 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -27,7 +28,7 @@ public class CarInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
         ImageView car_pic ;
         TextView car_id = findViewById(R.id.car_id) ;
-        String carid=getIntent().getStringExtra("car_id");
+        String carid= getIntent().getStringExtra("car_id");
         TextView car_type = findViewById(R.id.car_type);
         Button owner_info = findViewById(R.id.owner_info);
         Button lic_car_info =findViewById(R.id.lic_car_info);
@@ -37,13 +38,15 @@ public class CarInfoActivity extends AppCompatActivity {
         final String[] ins_id = new String[1];
         final String[] lic_id = new String[1];
         final String[] owner_id = new String[1];
+        GoogleSignInOptions gso = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        Bitmap bitmap = (Bitmap) getIntent().getParcelableExtra("BitmapImage");
 
-//        Bundle extras = getIntent().getExtras();
-//        byte[] byteArray = extras.getByteArray("car_pic");
-//        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-//        car_pic = (ImageView) findViewById(R.id.car_pic);
-//        car_pic.setImageBitmap(bmp);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        assert carid != null;
         db.collection("cars")
                 .document(carid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -51,10 +54,14 @@ public class CarInfoActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = (DocumentSnapshot) task.getResult();
                     if (document.exists()) {
+
+                   Log.d("TAG", document.getId() + " => " + document.getData());
                         cartype[0] =  String.valueOf(document.get("car_type"));
                         ins_id[0] = String.valueOf(document.get("ins_id"));
                         lic_id[0] =  String.valueOf(document.get("lic_id"));
                         owner_id[0] = String.valueOf(document.get("owner_id"));
+                        car_id.setText(carid);
+                        car_type.setText(cartype[0]);
 
                         Log.d("field car num: " , carid);
                         Log.d("field car type: " ,cartype[0]);
@@ -70,31 +77,16 @@ public class CarInfoActivity extends AppCompatActivity {
                 }
             }
         });
-//        db.collection("cars").document("5010095").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.d( "DocumentSnapshot data: " , document.getData().toString());
-//                    } else {
-//                        Log.d("m","No such document");
-//                    }
-//                } else {
-//                    Log.d("get failed with ", task.getException().toString());
-//                }
-//            }
-//        });
 
-        car_id.setText(carid);
-        car_type.setText(cartype[0]);
+
 
         owner_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),OwnerInfoAct.class);
-//                if(owner_id[0].equals(""))
-//                intent.putExtra("owner_id",owner_id[0] );
+                if(owner_id[0] != null)
+                intent.putExtra("owner_id",owner_id[0] );
+                intent.putExtra("license_id",lic_id[0] );
                 startActivity(intent);
             }
         });
@@ -102,8 +94,8 @@ public class CarInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),LicenseCarAct.class);
-//                if(lic_id[0].equals(""))
-//                    intent.putExtra("license_id", lic_id[0]);
+                if(lic_id[0] != null)
+                    intent.putExtra("license_id", lic_id[0]);
                 startActivity(intent);
             }
         });
@@ -111,8 +103,8 @@ public class CarInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(),InsuranceCarAct.class);
-//                if(ins_id[0].equals(""))
-//                    intent.putExtra("insurance_id",ins_id[0] );
+                if(ins_id[0] != null)
+                    intent.putExtra("insurance_id",ins_id[0] );
                 startActivity(intent);
             }
         });
@@ -128,21 +120,16 @@ public class CarInfoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.signout) {
-
-            AuthUI.getInstance()
-                    .signOut(this)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        public void onComplete(@NonNull Task<Void> task) {
-                            // user is now signed out
-                            startActivity(new Intent(CarInfoActivity.this, LoginActivity.class));
-                            finish();
-                        }
-                    });
-            Toast.makeText(getApplicationContext(), "signout", Toast.LENGTH_SHORT).show();
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(CarInfoActivity.this, LoginActivity.class));
 
         }
         return true;
     }
+
+
+
+
 
 }
 
