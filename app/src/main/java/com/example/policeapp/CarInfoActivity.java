@@ -45,39 +45,37 @@ public class CarInfoActivity extends AppCompatActivity {
                 .build();
         Bitmap bitmap = (Bitmap) getIntent().getParcelableExtra("BitmapImage");
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        assert carid != null;
-        db.collection("cars")
-                .document(carid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = (DocumentSnapshot) task.getResult();
-                    if (document.exists()) {
+           FirebaseFirestore db = FirebaseFirestore.getInstance();
+           db.collection("cars")
+                   .document(carid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+               @Override
+               public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                   if (task.isSuccessful()) {
+                       DocumentSnapshot document = (DocumentSnapshot) task.getResult();
+                       if (document.exists()) {
 
-                   Log.d("TAG", document.getId() + " => " + document.getData());
-                        cartype[0] =  String.valueOf(document.get("car_type"));
-                        ins_id[0] = String.valueOf(document.get("ins_id"));
-                        lic_id[0] =  String.valueOf(document.get("lic_id"));
-                        owner_id[0] = String.valueOf(document.get("owner_id"));
-                        car_id.setText(carid);
-                        car_type.setText(cartype[0]);
+                           Log.d("TAG", document.getId() + " => " + document.getData());
+                           cartype[0] = String.valueOf(document.get("car_type"));
+                           ins_id[0] = String.valueOf(document.get("ins_id"));
+                           lic_id[0] = String.valueOf(document.get("lic_id"));
+                           owner_id[0] = String.valueOf(document.get("owner_id"));
+                           car_id.setText(carid);
+                           car_type.setText(cartype[0]);
 
-                        Log.d("field car num: " , carid);
-                        Log.d("field car type: " ,cartype[0]);
-                        Log.d("field ins id: " , ins_id[0]);
-                        Log.d("field lic id: " , lic_id[0]);
-                        Log.d("field owner id: " , owner_id[0]);
+                           Log.d("field car num: ", carid);
+                           Log.d("field car type: ", cartype[0]);
+                           Log.d("field ins id: ", ins_id[0]);
+                           Log.d("field lic id: ", lic_id[0]);
+                           Log.d("field owner id: ", owner_id[0]);
 
-                    } else {
-                        Log.d("No such document"," ");
-                    }
-                } else {
-                    Log.d( "get failed with ", String.valueOf(task.getException()));
-                }
-            }
-        });
-
+                       } else {
+                           Log.d("No such document", " ");
+                       }
+                   } else {
+                       Log.d("get failed with ", String.valueOf(task.getException()));
+                   }
+               }
+           });
 
 
         owner_info.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +84,7 @@ public class CarInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(),OwnerInfoAct.class);
                 if(owner_id[0] != null)
                 intent.putExtra("owner_id",owner_id[0] );
-                intent.putExtra("license_id",lic_id[0] );
+
                 startActivity(intent);
             }
         });
@@ -120,13 +118,12 @@ public class CarInfoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.signout) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(CarInfoActivity.this, LoginActivity.class));
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(CarInfoActivity.this, LoginActivity.class));
 
         }
         return true;
     }
-
 
 
 

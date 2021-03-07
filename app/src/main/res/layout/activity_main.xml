@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="#222B3598"
-    >
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:background="#A9DBDEED"
+        >
 
 
     <TextView
@@ -19,6 +27,8 @@ android:background="#222B3598"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
+        android:fontFamily="casual"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +45,8 @@ android:background="#222B3598"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
+        android:fontFamily="casual"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -48,6 +60,7 @@ android:background="#222B3598"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="OPEN CAMERA TO DETECT PLATE NUMBER "
+        android:fontFamily="casual"
 
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -60,55 +73,55 @@ android:background="#222B3598"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.615" />
 
-    <Button
-        android:id="@+id/yolobtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#8FA7B0C3"
-        android:padding="5dp"
-        android:text="CAMERA"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.708" />
+        <Button
+            android:id="@+id/yolobtn"
+            android:layout_width="104dp"
+            android:layout_height="53dp"
+            android:background="#6FA7B0C3"
+            android:padding="5dp"
+            android:text="CAMERA"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.708" />
 
-    <Button
-        android:id="@+id/carPlateDisplay"
-        android:layout_width="333dp"
-        android:layout_height="wrap_content"
-        android:background="#8FA7B0C3"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="0-0000-00"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        <Button
+            android:id="@+id/carPlateDisplay"
+            android:layout_width="234dp"
+            android:layout_height="56dp"
+            android:background="#6FA7B0C3"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="0-0000-00"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.615"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.845" />
 
-    <Button
-        android:id="@+id/enteredcarPlate"
-        android:layout_width="109dp"
-        android:layout_height="46dp"
-        android:background="#8FA7B0C3"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Search"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        <Button
+            android:id="@+id/enteredcarPlate"
+            android:layout_width="104dp"
+            android:layout_height="53dp"
+            android:background="#6FA7B0C3"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Search"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.499" />
 
     <TextView
         android:id="@+id/textView"
@@ -125,3 +138,4 @@ android:background="#222B3598"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.137" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

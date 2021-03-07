@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,7 +15,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textAlignment="center"
-    android:background="#431E318E"
+
+    android:background="#A9DBDEED"
     >
 
     <Button
@@ -14,9 +24,10 @@
         android:layout_width="222dp"
         android:layout_height="45dp"
         android:background="#8FA7B0C3"
-        android:text="LICENCE CAR INFO"
+        android:text="LICENSE CAR INFO"
         android:textAlignment="center"
         android:textSize="20dp"
+        android:fontFamily="casual"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +44,7 @@
         android:text="OWNER INFO"
         android:textAlignment="center"
         android:textSize="20dp"
+        android:fontFamily="casual"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +61,7 @@
         android:text="INSURANCE CAR INFO"
         android:textAlignment="center"
         android:textSize="20dp"
+        android:fontFamily="casual"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +77,8 @@
         android:text="car id"
         android:textAlignment="center"
         android:textSize="40dp"
+        android:fontFamily="casual"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,17 +98,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.418"
+        android:fontFamily="casual"
 
         />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="250dp"
-        android:layout_height="65dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Car Details"
         android:textSize="50dp"
         android:textStyle="bold"
         android:textAlignment="center"
+        android:fontFamily="casual"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -101,3 +119,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.095" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

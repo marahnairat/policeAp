@@ -14,15 +14,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
@@ -57,9 +62,46 @@ public class MainActivity extends AppCompatActivity {
                                               public void onClick(android.view.View view) {
 
                                                   carPlate= enter_carplate.getText().toString();
-                                                  Intent intent = new Intent(getBaseContext(),CarInfoActivity.class);
+
+
+                                                  try {
+                                                      FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                      db.collection("cars")
+                                                              .document(carPlate).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                          @Override
+                                                          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                              if (task.isSuccessful()) {
+                                                                  DocumentSnapshot document = (DocumentSnapshot) task.getResult();
+                                                                  if (document.exists()) {
+
+                                                                      Intent intent = new Intent(getBaseContext(),CarInfoActivity.class);
                                                   intent.putExtra("car_id", carPlate);
                                                   startActivity(intent);
+
+                                                                  } else {
+                                                                      Log.d("No such document", " ");
+                                                                      Toast.makeText(getBaseContext(), "NO CAR IN DB ", Toast.LENGTH_SHORT).show();
+
+                                                                  }
+                                                              } else {
+
+                                                                  Log.d("get failed with ", String.valueOf(task.getException()));
+                                                              }
+                                                          }
+                                                      });
+
+
+
+                                                  } catch (Exception e)
+
+                                                  {
+
+                                                      Toast.makeText(getBaseContext(), "NO CAR IN DB ", Toast.LENGTH_SHORT).show();
+                                                  }
+
+
+
+//
                                               }
                                           });
 
@@ -98,15 +140,52 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(FirebaseVisionText firebaseVisionText) {
                 carPlate=firebaseVisionText.getText();
-                
+                final String[] car_id = new String[1];
+
                 carPlateDisplay.setText(firebaseVisionText.getText());
                 carPlateDisplay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getBaseContext(),CarInfoActivity.class);
-                        intent.putExtra("car_id", carPlate);
-                        intent.putExtra("car_pic", imageBitmap);
-                        startActivity(intent);
+
+                        try {
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            db.collection("cars")
+                                    .document(carPlate).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = (DocumentSnapshot) task.getResult();
+                                        if (document.exists()) {
+
+                                            Log.d("TAG", document.getId() + " => " + document.getData());
+                                            car_id[0] = String.valueOf(document.get("car_id"));
+                                            Intent intent = new Intent(getBaseContext(),CarInfoActivity.class);
+                                            intent.putExtra("car_id", carPlate);
+                                            intent.putExtra("car_pic", imageBitmap);
+                                            startActivity(intent);
+
+                                        } else {
+                                            Log.d("No such document", " ");
+                                            Toast.makeText(getBaseContext(), "NO CAR IN DB ", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    } else {
+
+                                        Log.d("get failed with ", String.valueOf(task.getException()));
+                                    }
+                                }
+                            });
+
+
+
+                        } catch (Exception e)
+
+                        {
+
+                            Toast.makeText(getBaseContext(), "NO CAR IN DB ", Toast.LENGTH_SHORT).show();
+                        }
+
+
                     }
                 });
             }

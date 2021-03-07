@@ -33,41 +33,12 @@ public class OwnerInfoAct extends AppCompatActivity {
         TextView is_exp = findViewById(R.id.has_lic);
 
         String ownerId;
-        String licId;
         ownerId=getIntent().getStringExtra("owner_id");
-        licId=getIntent().getStringExtra("license_id");
         final Timestamp[] licStartDate = new Timestamp[1];
         final Timestamp [] licEndDate = new Timestamp[1];
         final String[] ownername = new String[1];
         final String[] ownerphone = new String[1];
-
-
-
-        assert licId != null;
-        DocumentReference data = FirebaseFirestore.getInstance().collection("licence_c")
-                .document(licId);
-        data.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = (DocumentSnapshot) task.getResult();
-                    if (document.exists()) {
-                        licStartDate[0] = (Timestamp) document.get("start_date");
-                        licEndDate[0] = (Timestamp) document.get("end_date");
-
-                    } else {
-                        Log.d("No such document"," ");
-                        is_exp.setText("HAS NO LICENCE");
-
-                    }
-                } else {
-                    Log.d( "get failed with ", String.valueOf(task.getException()));
-                }
-            }
-        });
-
-
-
+        final String[] ownerlic = new String[1];
 
         assert ownerId != null;
         DocumentReference dataa = FirebaseFirestore.getInstance().collection("owners")
@@ -81,35 +52,68 @@ public class OwnerInfoAct extends AppCompatActivity {
 
                         ownername[0] =  String.valueOf(document.get("name"));
                         ownerphone[0] =  String.valueOf(document.get("phone"));
-//
-                        Date end = licEndDate[0].toDate();
-                        name.setText(ownername[0]);
-                        phone.setText(ownerphone[0]);
+                        ownerlic[0] =  String.valueOf(document.get("lic_id"));
 
-
-                        int is_expired = end.compareTo(currentTime);
-                        if(is_expired < 0)
-                        {
-                            is_exp.setText("HAS EXPIRED LICENCE  ");
-                            is_exp.setBackgroundColor(Color.parseColor("#D59C5B5B"));
-                        }
-                        else
-                        {
-                            is_exp.setText("HAS VALID LICENCE ");
-                            is_exp.setBackgroundColor(Color.parseColor("#D55B9C6E"));
-                        }
+                        Log.d("No such document",ownerlic[0]);
+                        get_owner_license(ownerlic[0]);
 
 
                     } else {
                         Log.d("No such document"," ");
-                        is_exp.setBackgroundColor(Color.parseColor("#D59C5B5B"));
                     }
                 } else {
                     Log.d( "get failed with ", String.valueOf(task.getException()));
                 }
             }
-        });
 
+            private void get_owner_license(String licId) {
+                assert licId != null;
+                DocumentReference data = FirebaseFirestore.getInstance().collection("license")
+                        .document(licId);
+                data.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = (DocumentSnapshot) task.getResult();
+                            if (document.exists()) {
+                                licStartDate[0] = (Timestamp) document.get("start_date");
+                                licEndDate[0] = (Timestamp) document.get("end_date");
+
+                                Date end = licEndDate[0].toDate();
+                                name.setText(ownername[0]);
+                                phone.setText(ownerphone[0]);
+
+
+                                int is_expired = end.compareTo(currentTime);
+                                if(is_expired < 0)
+                                {
+                                    is_exp.setText("HAS EXPIRED LICENCE  ");
+                                    is_exp.setBackgroundColor(Color.parseColor("#D59C5B5B"));
+                                }
+                                else
+                                {
+                                    is_exp.setText("HAS VALIED LICENCE ");
+                                    is_exp.setBackgroundColor(Color.parseColor("#D55B9C6E"));
+                                }
+
+
+
+                            } else {
+                                Log.d("No such document"," ");
+                                is_exp.setText("HAS NO LICENCE");
+                                is_exp.setBackgroundColor(Color.parseColor("#D59C5B5B"));
+
+                            }
+                        } else {
+                            Log.d( "get failed with ", String.valueOf(task.getException()));
+                        }
+                    }
+                });
+
+
+
+            }
+        });
 
 
     }
